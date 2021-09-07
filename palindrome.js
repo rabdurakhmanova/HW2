@@ -1,4 +1,4 @@
-function verifyPalindrome(str) {  
+function verifyPalindrome(string) {  
    
     const len = string.length;  
   
