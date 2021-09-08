@@ -1,63 +1,65 @@
-var fs = require('fs');
+const fs = require('fs');
 
+const checkJSON = (pathToJSON) => {
+    const data = fs.readFileSync(pathToJSON, 'utf-8');
+    const { flag, myPromises, element,
+        screenshot, elementText, allElementsText,
+        counter, config, const: constant,
+        parameters, description } = JSON.parse(data);
+    const errors = {};
 
-fs.readFile('file.json', 'utf8', function(err, ReadData){
-    if (err) throw err;
+    if (typeof flag !== 'boolean') {
+        errors.flag = { is: typeof flag, be: 'be boolean' };
+    }
+    if (!Array.isArray(myPromises)) {
+        errors.myPromises = { is: typeof myPromises, be: 'be array' };
+    }
+    if (element instanceof Array) {
+        errors.element = { is: 'Array', be: 'be object' };
+    } else if (typeof element != 'object') {
+        errors.element = { is: element, be: 'be object' };
+    }
+    if (screenshot !== null) {
+        errors.screenshot = { is: screenshot, be: 'be null' };
+    }
+    if (typeof elementText !== 'string') {
+        errors.elementText = { is: typeof elementText, be: 'be string' };
+    }
+    if (!allElementsText.includes('const')) {
+        errors.allElementsText = { is: allElementsText, be: 'contain const' };
+    }
+    if (counter <= 10) {
+        errors.counter = { is: counter, be: 'be more than 10' };
+    }
+    if (config !== 'Common') {
+        errors.config = { is: config, be: 'be Common' };
+    }
+    if (constant.toLowerCase() !== 'first') {
+        errors.const = { is: constant, be: 'be first (case insensitive)' };
+    }
+    if (!Array.isArray(parameters)) {
+        errors.parameters = { is: typeof parameters, be: 'be an array of 8 elements, while parameter is not an array at all' };
+    } else if (parameters.length !== 8) {
+        errors.parameters = { is: `an array of ${parameters.length} elements`, be: 'be an array of 8 elements' };
+    }
+    const descLen = description.length;
+    if (descLen <= 5 || descLen >= 13) {
+        errors.description = { is: `a string with length of ${descLen}`, be: 'be a string with length from 6 to 12' };
+    }
 
-    var result = JSON.parse(ReadData);
-    console.log(result);
-    
-    
-    const values = Object.values(result);
-    arr = [];
-    if (typeof values[0] != 'boolean') {
-    arr.push(values[0]);}
-        else {
-    console.log(arr);}
-    if (Array.isArray(values[1])) {
-    console.log(arr);}
-        else {
-    arr.push(values[1]);}
-    if (typeof values[2] != 'object'){
-    arr.push(values[2]);}
-        else {
-    console.log(arr);}
-    if (typeof values[3] != 'null'){
-    arr.push(values[3]);}
-        else {
-    console.log(arr);}
-    if (typeof values[4] != 'string'){
-    arr.push(values[4]);}
-        else {
-    console.log(arr);}
-    if (values[5].includes('const')){
-    console.log(arr);}
-        else {
-    arr.push(values[5]);}
-    if (values[6]> 10){
-    arr.push(values[6]);}
-        else {
-    console.log(arr);}
-    if (values[7]!=='Common'){
-        arr.push(values[7]);}
-        else {
-        console.log(arr);}
-    if (values[8].toLowerCase() !== 'FiRSt'.toLowerCase()){
-            arr.push(values[8]);}
-        else {
-            console.log(arr);}
-    if (values[9].length != 8){
-            arr.push(values[9]);}
-        else {
-            console.log(arr);}
-    if (values[10].length >5 && values[10].length <13) {
-        console.log();}
-        else {
-            arr.push(values[10]);} 
-    
- 
-    fs.writeFile('newfile.json'),"utf8", function(err, arr) {
-        if (err) throw err;}    
+    const errEntries = Object.entries(errors);
+    const errMsgRows = [];
+    if (errEntries.length === 0) {
+        console.log('OK');
+    } else {
+        for(const [key, { is, be }] of errEntries) {
+            errMsgRows.push(`${key} is ${is}, while it should ${be}`);
+        };
 
-console.log(arr);
-    })
+        console.log('Your JSON file has errors!');
+        fs.writeFileSync('./errors.txt', errMsgRows.join('\n'));
+    }
+};
+
+checkJSON('./file.json');
+checkJSON('./file2.json');
