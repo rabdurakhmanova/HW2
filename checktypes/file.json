@@ -1,0 +1,13 @@
+{
+    "flag" : "good",	
+    "myPromises": {},	
+    "element" : [],	
+    "screenshot" : "hey",
+    "elementText": 4,
+    "allElementsText": "consantine",
+    "counter" : 13,	
+    "config": "Commons",
+    "const": "first and second",
+    "parameters" : ["read", "write", "learn","read", "write", "learn","read", "write", "learn","read", "write", "learn"],
+    "description" : "Java!"
+}

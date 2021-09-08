@@ -1,0 +1,18 @@
+{
+    "flag" : true,	
+    "myPromises": ["read", "write", "learn"],	
+    "element" : {
+        "street": "7504 Taylor Drive",
+        "city": "New York City",
+        "state": "New York",
+        "postalCode": "11238"
+    },	
+    "screenshot" : null,
+    "elementText": "Street",
+    "allElementsText": "constantine",
+    "counter" : 12,	
+    "config": "Common",
+    "const": "FiRst",
+    "parameters" : ["read", "write", "learn","read", "write", "learn", "read", "write"],
+    "description" : "Javascript"
+}

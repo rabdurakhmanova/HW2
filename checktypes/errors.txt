@@ -1,0 +1,10 @@
+flag is string, while it should be boolean
+myPromises is object, while it should be array
+element is Array, while it should be object
+screenshot is hey, while it should be null
+elementText is number, while it should be string
+allElementsText is consantine, while it should contain const
+config is Commons, while it should be Common
+const is first and second, while it should be first (case insensitive)
+parameters is an array of 12 elements, while it should be an array of 8 elements
+description is a string with length of 5, while it should be a string with length from 6 to 12
